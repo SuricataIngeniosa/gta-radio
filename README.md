@@ -1,173 +1,169 @@
 # GTA Radio
 
-App de Android y Android Auto que reproduce las radios de GTA III, Vice City, San Andreas, IV, V y VI con el tema, el artista y el logo de cada emisora. Muestra la grilla de radios con el estilo de cada juego, y en el auto anterior/siguiente cambian de emisora.
+Android and Android Auto app that plays the radio stations of GTA III, Vice City, San Andreas, IV, V and VI, showing the song, the artist and each station's logo. The station grid is styled after each game, and in the car previous/next switch stations.
 
-**La app no trae audio.** Las emisoras se sacan de tu propia copia de cada juego con los comandos de abajo.
+**The app ships no audio.** You extract the stations from your own copy of each game with the commands below.
 
-## Instalar
+## Install
 
-1. Bajá `GTA-Radio.apk` de [Releases](../../releases) e instalalo (hay que permitir "instalar apps desconocidas").
-2. Copiá las emisoras al teléfono (ver [Dónde van los archivos](#dónde-van-los-archivos)).
-3. Abrí la app y elegí la carpeta de cada juego desde el engranaje. Si no elegís ninguna, la app busca sola `Music/GTA III Radios`, `Music/GTA VC Radios`, etc., en la memoria interna, la SD o un pendrive.
+1. Download `GTA-Radio.apk` from [Releases](../../releases) and install it (allow "install unknown apps").
+2. Copy the stations to the phone (see [Folder layout](#folder-layout)).
+3. Open the app and pick each game's folder from the gear icon. If you pick none, the app looks for `Music/GTA III Radios`, `Music/GTA VC Radios`, etc. on internal storage, the SD card or a USB drive.
 
-En autos sin selector de archivos (por ejemplo el BYD DiLink) tocá "Permitir acceso a todos los archivos" en la app, o desde una PC:
+On car head units without a file picker (e.g. BYD DiLink), tap "Allow access to all files" in the app, or from a PC:
 
 ```sh
 adb shell appops set ar.nallib.gtaradio MANAGE_EXTERNAL_STORAGE allow
 ```
 
-## Dónde van los archivos
+## Folder layout
 
-Hay una carpeta por juego:
+One folder per game:
 
-| Juego | Carpeta |
+| Game | Folder |
 |---|---|
 | GTA III | `GTA III Radios` |
-| Vice City | `GTA VC Radios` (o `GTA Vice City Radios`) |
+| Vice City | `GTA VC Radios` (or `GTA Vice City Radios`) |
 | San Andreas | `GTA SA Radios` |
 | GTA IV | `GTA IV Radios` |
 | GTA V | `GTA V Radios` |
 | GTA VI | `GTA VI Radios` |
 
-Dentro de cada una, la app acepta dos formas:
-
-**A. Un archivo por emisora** (lo más rápido): `HEAD.mp3`, `FLASH.flac`, etc., con el nombre corto de la emisora (la lista completa está en `android/app/src/main/java/ar/nallib/gtaradio/data/Stations.kt`). Si al lado hay un `HEAD.cue`, la app muestra el tema que suena. Sin `.cue` se ve sólo el nombre de la radio.
-
-**B. Una subcarpeta por emisora, con un archivo por tema** (recomendado: se puede saltar de tema). La subcarpeta se llama como la emisora (`Head Radio` o `HEAD`) y cada archivo así:
+Inside it, one subfolder per station, named after the station (`Flash FM` or its short name `FLASH`; the full list is in `android/app/src/main/java/ar/nallib/gtaradio/data/Stations.kt`). Inside each station folder, one file per song, DJ break or ad block:
 
 ```
-[orden]_[Emisora]_[Tema]_[Artista].ext
+[order]_[Station]_[Song]_[Artist].ext
 001_Flash FM_Comentario_Toni.flac
 002_Flash FM_Billie Jean_Michael Jackson.flac
 003_Flash FM_Tanda - 1_Comercial.flac
 ```
 
-Lo que empieza con `Comentario`, `Intro`, `Outro`, `Tanda`, `Anuncio` o `Jingle` se muestra como radio + locutor. Formatos: flac, mp3, ogg, opus, m4a y wav.
+Files whose title starts with `Comentario`, `Intro`, `Outro`, `Tanda`, `Anuncio`, `Ad` or `Jingle` are shown as station name + DJ. Supported formats: flac, mp3, ogg, opus, m4a and wav.
 
-Logos: `<NOMBRE>.png` en la carpeta del juego (`FLASH.png`) o `logo.png` dentro de la carpeta de la emisora. La app ya trae los logos de todas.
+The app reads no `.cue` files: they are only used on the PC to cut a full station into these files (see [Cut a station into songs](#cut-a-station-into-songs)).
 
-## Requisitos para los comandos
+Logos: the app already includes them. To override one, put `<SHORTNAME>.png` in the game folder (`FLASH.png`) or `logo.png` in the station folder.
 
-Linux (o WSL) con Docker. Todas las herramientas corren en contenedores, así que no hace falta instalar Python ni ffmpeg:
+## Requirements
+
+Linux (or WSL) with Docker. Every tool runs in a container, so you don't need Python or ffmpeg installed:
 
 ```sh
 git clone https://github.com/SuricataIngeniosa/gta-radio && cd gta-radio
-docker build -t gtaradio-align tools/align      # ffmpeg + numpy: cortes, .cue
-docker build -t gtaradio-rpf   tools/rpf        # paquetes .rpf de GTA IV
-docker build -t gtaradio-vgm   tools/vgmstream  # vgmstream: audio de Rockstar (.ivaud, .awc)
-docker build -t gtaradio-shazam tools/shazam    # reconocer temas (sólo si no hay .cue)
+docker build -t gtaradio-align  tools/align      # ffmpeg + numpy: cutting, .cue
+docker build -t gtaradio-rpf    tools/rpf        # GTA IV .rpf archives
+docker build -t gtaradio-vgm    tools/vgmstream  # vgmstream: Rockstar audio (.ivaud, .awc)
+docker build -t gtaradio-shazam tools/shazam     # song recognition (only when there is no .cue)
 ```
 
-En los ejemplos, `JUEGO` es la carpeta donde está instalado el juego y `SALIDA` la carpeta donde querés las emisoras.
+In the examples, `GAME` is the game's install folder and `OUT` is where you want the stations.
 
-## Sacar las emisoras de cada juego
+## Extracting the stations
 
-| Juego | Estado de estos comandos |
+| Game | Status of these commands |
 |---|---|
-| GTA III | sin probar con los archivos del juego (el formato es WAV común) |
-| Vice City | probado |
-| San Andreas | sin probar: necesita otra herramienta (abajo) |
-| GTA IV | probado (RPF → .ivaud → WAV) |
-| GTA V | sin probar: necesita OpenIV en Windows |
-| GTA VI | no hay versión de PC: no hay archivos para extraer |
+| GTA III | untested on the game files (plain WAV) |
+| Vice City | tested |
+| San Andreas | untested: needs a third-party tool (below) |
+| GTA IV | tested (RPF → .ivaud → WAV) |
+| GTA V | untested: needs OpenIV on Windows |
+| GTA VI | no PC release, so there are no game files to extract |
 
 ### GTA III
 
-Las emisoras están enteras en `JUEGO/audio/`: `HEAD.wav`, `CLASS.wav`, `KJAH.wav`, `RISE.wav`, `LIPS.wav`, `GAME.wav`, `MSX.wav`, `FLASH.wav` y `CHAT.wav`. Se pasan a mp3 y se cortan con los `.cue` de `cues/III/`:
+Each station is a whole file in `GAME/audio/`: `HEAD.wav`, `CLASS.wav`, `KJAH.wav`, `RISE.wav`, `LIPS.wav`, `GAME.wav`, `MSX.wav`, `FLASH.wav` and `CHAT.wav`. Convert them to mp3, then cut them with the `.cue` files in `cues/III/`:
 
 ```sh
 for s in HEAD CLASS KJAH RISE LIPS GAME MSX FLASH CHAT; do
-  docker run --rm -u $(id -u):$(id -g) -v "JUEGO/audio":/in:ro -v "SALIDA":/out gtaradio-align \
+  docker run --rm -u $(id -u):$(id -g) -v "GAME/audio":/in:ro -v "OUT":/out gtaradio-align \
     ffmpeg -n -i /in/$s.wav -c:a libmp3lame -b:a 320k /out/$s.mp3
 done
 ```
 
-Con eso ya funciona la forma A (copiá también `cues/III/*.cue` al lado). Para la forma B, ver [Cortar en un archivo por tema](#cortar-en-un-archivo-por-tema).
-
 ### Vice City
 
-Cada emisora es un `.adf` en `JUEGO/Audio/` (`FLASH.adf`, `WAVE.adf`, `EMOTION.adf`, `ESPANT.adf`, `FEVER.adf`, `VROCK.adf`, `WILD.adf`, `KCHAT.adf`, `VCPR.adf`). Un `.adf` es un mp3 con cada byte pasado por XOR 0x22, y `tools/adf2mp3.py` lo deshace sin recodificar:
+Each station is an `.adf` in `GAME/Audio/` (`FLASH.adf`, `WAVE.adf`, `EMOTION.adf`, `ESPANT.adf`, `FEVER.adf`, `VROCK.adf`, `WILD.adf`, `KCHAT.adf`, `VCPR.adf`). An `.adf` is an mp3 with every byte XORed with 0x22; `tools/adf2mp3.py` undoes it without re-encoding:
 
 ```sh
-docker run --rm -u $(id -u):$(id -g) -v "JUEGO/Audio":/in:ro -v "SALIDA":/out -v "$PWD/tools":/t:ro \
+docker run --rm -u $(id -u):$(id -g) -v "GAME/Audio":/in:ro -v "OUT":/out -v "$PWD/tools":/t:ro \
   gtaradio-align python /t/adf2mp3.py /in /out
 ```
 
-Salen `flash.mp3`, `wave.mp3`, etc. Renombralos a mayúsculas (`FLASH.mp3`) y copiá al lado `cues/VC/*.cue`. Wildstyle, K-Chat y VCPR no tienen `.cue`.
+You get `flash.mp3`, `wave.mp3`, etc. Rename them to upper case (`FLASH.mp3`) and cut them with `cues/VC/`. Wildstyle, K-Chat and VCPR have no `.cue` yet.
 
 ### San Andreas
 
-Las radios están en `JUEGO/audio/streams/` (archivos sin extensión como `CH`, `CO`, `CR`, `DS`, `HC`, `MH`, `MR`, `NJ`, `RE`, `RG`) y cada uno trae muchos temas sueltos en Ogg Vorbis cifrado. Este repo **no** tiene un extractor para ese formato. Lo más usado es SAAT (San Andreas Audio Toolkit, de Windows), que exporta cada tema como `.ogg`. Después se ordenan en subcarpetas con la forma B.
+The stations live in `GAME/audio/streams/` (extensionless files such as `CH`, `CO`, `CR`, `DS`, `HC`, `MH`, `MR`, `NJ`, `RE`, `RG`), each holding many separate tracks as encrypted Ogg Vorbis. This repo has **no** extractor for that format. The usual tool is SAAT (San Andreas Audio Toolkit, Windows), which exports each track as `.ogg`. Then rename them into station folders as described in [Folder layout](#folder-layout).
 
 ### GTA IV
 
-Las radios están en `JUEGO/pc/audio/sfx/RADIO_*.rpf`. `tools/rpf/extract.py` abre el paquete (el índice está cifrado con AES) y saca los `.ivaud`. Después vgmstream los decodifica a WAV:
+The stations are in `GAME/pc/audio/sfx/RADIO_*.rpf`. `tools/rpf/extract.py` opens the archive (its index is AES-encrypted) and pulls out the `.ivaud` files, then vgmstream decodes them to WAV:
 
 ```sh
-mkdir -p SALIDA/ivaud
-docker run --rm -u $(id -u):$(id -g) -v "JUEGO/pc/audio/sfx":/in:ro -v "SALIDA/ivaud":/out -v "$PWD/tools":/t:ro \
+mkdir -p OUT/ivaud
+docker run --rm -u $(id -u):$(id -g) -v "GAME/pc/audio/sfx":/in:ro -v "OUT/ivaud":/out -v "$PWD/tools":/t:ro \
   gtaradio-rpf sh -c 'for r in /in/RADIO_*.rpf; do python /t/rpf/extract.py "$r" /out; done'
 
-docker run --rm -u $(id -u):$(id -g) -v "SALIDA/ivaud":/w gtaradio-vgm \
+docker run --rm -u $(id -u):$(id -g) -v "OUT/ivaud":/w gtaradio-vgm \
   sh -c 'for f in /w/*.ivaud; do vgmstream-cli -o "${f%.ivaud}.wav" "$f"; done'
 ```
 
-Cada `.ivaud` es un tema o un bloque de comentarios del DJ, con un número en el nombre en vez del título. Para saber cuál es cuál, ver [Reconocer los temas con Shazam](#reconocer-los-temas-con-shazam).
+Each `.ivaud` is one song or one DJ block, named by a number instead of its title. To find out which is which, see [Recognizing songs with Shazam](#recognizing-songs-with-shazam).
 
 ### GTA V
 
-Las radios están en paquetes RPF7 (`x64*.rpf` → `audio/sfx/RADIO_*.rpf`). Su cifrado necesita claves que salen del ejecutable del juego, así que el camino más simple es [OpenIV](https://openiv.com/) en Windows: abrir `RADIO_*.rpf` y exportar los `.awc`. Después vgmstream los convierte igual que en GTA IV:
+The stations are in RPF7 archives (`x64*.rpf` → `audio/sfx/RADIO_*.rpf`). Their encryption needs keys taken from the game executable, so the simplest route is [OpenIV](https://openiv.com/) on Windows: open `RADIO_*.rpf` and export the `.awc` files. vgmstream then converts them like in GTA IV:
 
 ```sh
-docker run --rm -u $(id -u):$(id -g) -v "SALIDA/awc":/w gtaradio-vgm \
+docker run --rm -u $(id -u):$(id -g) -v "OUT/awc":/w gtaradio-vgm \
   sh -c 'for f in /w/*.awc; do vgmstream-cli -S 0 -o "${f%.awc}_?s_?n.wav" "$f"; done'
 ```
 
-(`-S 0` saca todos los sub-audios de cada `.awc`; `?s` y `?n` ponen su número y nombre.)
+(`-S 0` extracts every sub-stream in each `.awc`; `?s` and `?n` add its number and name.)
 
 ### GTA VI
 
-Sólo existe en consolas, así que no hay archivos de juego para extraer. Si tenés la emisora completa en un archivo, `tools/align/chapters_to_cue.py` arma el `.cue` con los capítulos (tema y artista con su minuto) de un video "Full Radio Station" bajado con `yt-dlp --write-info-json`.
+It's console-only, so there are no game files to extract. If you have a full station recording, `tools/align/chapters_to_cue.py` builds its `.cue` from the chapters (song, artist and timestamp) of a "Full Radio Station" video downloaded with `yt-dlp --write-info-json`.
 
-## Cortar en un archivo por tema
+## Cut a station into songs
 
-Con el audio de la emisora y su `.cue`, `split.py` genera la forma B: FLAC→FLAC sin pérdida, mp3→mp3 320 kbps, todo sin huecos entre temas:
+Given a full station and its `.cue`, `split.py` writes the per-song files the app expects. FLAC stays lossless FLAC, mp3 becomes 320 kbps mp3, and there are no gaps between tracks:
 
 ```sh
-docker run --rm -u $(id -u):$(id -g) -v "SALIDA":/w -v "$PWD/cues":/c:ro -v "$PWD/tools":/t:ro gtaradio-align \
+docker run --rm -u $(id -u):$(id -g) -v "OUT":/w -v "$PWD/cues":/c:ro -v "$PWD/tools":/t:ro gtaradio-align \
   python /t/align/split.py /w/FLASH.mp3 /c/VC/FLASH.cue "/w/Flash FM" "Flash FM" "Toni"
 ```
 
-Argumentos: audio, `.cue`, carpeta de salida, nombre de la emisora y locutor.
+Arguments: audio, `.cue`, output folder, station name and DJ.
 
-## Reconocer los temas con Shazam
+## Recognizing songs with Shazam
 
-Cuando no hay `.cue` (emisoras de SA, IV y V, o versiones del juego distintas a la usada para `cues/`), `scan_songs.py` consulta Shazam cada 60 s del archivo y `songs_to_cue.py` arma el `.cue`:
+When there is no `.cue` (San Andreas, IV and V, or a game version different from the one used for `cues/`), `scan_songs.py` queries Shazam every 60 s of audio and `songs_to_cue.py` builds the `.cue`:
 
 ```sh
-docker run --rm -u $(id -u):$(id -g) -v "SALIDA":/w -v "$PWD/tools":/t:ro gtaradio-shazam \
+docker run --rm -u $(id -u):$(id -g) -v "OUT":/w -v "$PWD/tools":/t:ro gtaradio-shazam \
   python /t/shazam/scan_songs.py /w/K109.mp3 /w/K109.json
-docker run --rm -u $(id -u):$(id -g) -v "SALIDA":/w -v "$PWD/tools":/t:ro gtaradio-align \
+docker run --rm -u $(id -u):$(id -g) -v "OUT":/w -v "$PWD/tools":/t:ro gtaradio-align \
   python /t/align/songs_to_cue.py /w/K109.json /w/K109.cue
 ```
 
-Shazam acepta unas 2 consultas por minuto por IP, así que una emisora de 1 h tarda un rato. El escaneo se puede cortar y retomar: cada respuesta queda guardada en `K109.q.jsonl`. Lo que no reconoce como canción queda como comentario.
+Shazam allows about 2 queries per minute per IP, so a one-hour station takes a while. The scan can be stopped and resumed: every answer is saved to `K109.q.jsonl`. Anything not recognized as a song becomes a DJ break.
 
-Si tenés los temas sueltos (de un CD, por ejemplo), `tools/align/align.py` los ubica en el archivo completo por correlación, con unos 0,1 s de precisión y sin Shazam.
+If you have the songs as separate files (from a CD, for example), `tools/align/align.py` locates each one inside the full station by correlation, to about 0.1 s, without Shazam.
 
 ## `cues/`
 
-`.cue` ya hechos para GTA III y Vice City, alineados con el audio de una copia de PC. Si tu versión trae otros temas (la de Steam de Vice City sacó algunos), los tiempos no coinciden: generalos de nuevo con `align.py` o Shazam.
+Ready-made `.cue` files for GTA III and Vice City, aligned with the audio of one PC copy. If your version has different songs (the Steam release of Vice City removed some), the timings won't match: regenerate them with `align.py` or Shazam.
 
-## Compilar
+## Building
 
 ```sh
-cd android && ./build.sh          # APK debug en app/build/outputs/apk/debug/
-./build.sh install                # además lo instala por adb
+cd android && ./build.sh          # debug APK in app/build/outputs/apk/debug/
+./build.sh install                # also installs it over adb
 ```
 
-Necesita JDK 17 y el Android SDK con `platforms;android-37.2` (ver `build.sh`).
+Needs JDK 17 and the Android SDK with `platforms;android-37.2` (see `build.sh`).
 
-## Aviso
+## Disclaimer
 
-Proyecto personal sin relación con Rockstar Games ni Take-Two. Los nombres, logos y la música son de sus dueños. La app no trae audio de los juegos: cada uno saca el suyo de su propia copia. Las fuentes que trae la app y sus licencias están en [android/licenses/FONTS.md](android/licenses/FONTS.md).
+Personal project, not affiliated with Rockstar Games or Take-Two. Names, logos and music belong to their owners. The app ships no game audio: everyone extracts their own from their own copy. The fonts bundled in the app and their licenses are listed in [android/licenses/FONTS.md](android/licenses/FONTS.md).
