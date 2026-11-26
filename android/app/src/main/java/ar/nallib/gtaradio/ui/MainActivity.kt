@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
                 }
                 GameBackground(Modifier.fillMaxSize().then(swipe)) {
                     // key: al cambiar de juego se rearma la pantalla con su carpeta y sus emisoras.
-                    key(game) { Screen(prefs, onPickGame = { g -> if (g != game) game = switchGame(prefs, g) }) }
+                    key(game) { Screen(prefs, onPickGame = { g -> if (g != game) game = switchGame(prefs, g) else prefs.game = g }) }
                 }
                 update?.let { UpdateDialog(it, onDismiss = { update = null }) }
             }
@@ -207,8 +207,9 @@ class MainActivity : ComponentActivity() {
         var folder by remember(storageTick) { mutableStateOf(prefs.folderUri) }
         var noPicker by remember { mutableStateOf(false) }
         var live by remember { mutableStateOf(prefs.liveMode) }
-        var showSettings by remember { mutableStateOf(prefs.folderUri == null) }
-        var showGames by remember { mutableStateOf(false) }
+        // Primera vez: primero el selector de juegos; los ajustes (si falta la carpeta) aparecen después de elegir.
+        var showSettings by remember { mutableStateOf(prefs.gameChosen && prefs.folderUri == null) }
+        var showGames by remember { mutableStateOf(!prefs.gameChosen) }
         // Recorrer las carpetas de las emisoras (SAF) es lento: en segundo plano; mientras, la pantalla se dibuja igual.
         val library by produceState(ar.nallib.gtaradio.data.Library(), folder, game, storageTick) {
             value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { prefs.resolveFiles() }
@@ -260,7 +261,7 @@ class MainActivity : ComponentActivity() {
                                 when { gs.bottomArt -> Modifier.background(gs.skyFill); gs.pickerBg != null -> Modifier.background(gs.pickerBg)
                                     else -> Modifier.background(gs.sky) })
                                 .border(if (current) 3.dp else 1.dp, if (current) st.accent else gs.title.copy(alpha = 0.5f), RoundedCornerShape(14.dp))
-                                .clickable { showGames = false; onPickGame(g) }
+                                .clickable { showGames = false; if (g == game && !prefs.gameChosen) showSettings = prefs.folderUri == null; onPickGame(g) }
                                 .padding(horizontal = 18.dp, vertical = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {

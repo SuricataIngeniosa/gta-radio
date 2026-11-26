@@ -16,6 +16,9 @@ class Prefs(private val context: Context) {
         get() = runCatching { Game.valueOf(sp.getString("game", null)!!) }.getOrDefault(Game.VICE_CITY)
         set(v) = sp.edit { putString("game", v.name) }
 
+    /** ¿Ya se eligió un juego alguna vez? Si no (primera vez), la app abre con el selector de juegos. */
+    val gameChosen get() = sp.contains("game")
+
     /** Carpeta de audios del juego elegido: cada juego tiene la suya. null al asignar = volver a la predefinida. */
     var folderUri: Uri?
         get() = folderOf(game)
