@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Reproducción en segundo plano (Android 14+ exige el tipo mediaPlayback). -->
-    <!-- Buscar versiones nuevas en GitHub Releases y abrir el instalador con el APK bajado. -->
+    <!-- Buscar versiones nuevas en GitHub Releases e instalarlas (la app se actualiza sola). -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -38,15 +38,8 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.updates"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/update_paths" />
-        </provider>
+        <!-- Estado de la autoactualización (PackageInstaller). -->
+        <receiver android:name=".data.UpdateReceiver" android:exported="false" />
 
         <!-- Android Auto descubre el servicio por estas dos acciones. -->
         <service
