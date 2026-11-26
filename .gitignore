@@ -1,0 +1,9 @@
+work/
+**/__pycache__/
+android/.kotlin/
+COMPRAR.md
+# Fuentes sueltas: las que usa la app ya están en android/app/src/main/res/font
+images/**/*.ttf
+images/**/*.TTF
+images/**/*.otf
+images/**/*.txt

@@ -1,0 +1,62 @@
+REM GENERATOR "align.py: correlación contra los tracks sueltos (precisión ~0,1 s)"
+PERFORMER "Pepe"
+TITLE "ESPANT"
+FILE "ESPANT.mp3" MP3
+  TRACK 01 AUDIO
+    REM TYPE TALK
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "A Gozar Con Mi Combo"
+    PERFORMER "Cachao"
+    REM TYPE SONG
+    INDEX 01 00:00:09
+  TRACK 03 AUDIO
+    REM TYPE TALK
+    INDEX 01 06:18:36
+  TRACK 04 AUDIO
+    TITLE "Latin Flute"
+    PERFORMER "Deodato"
+    REM TYPE SONG
+    INDEX 01 14:11:03
+  TRACK 05 AUDIO
+    TITLE "Mama Papa Tu"
+    PERFORMER "Mongo Santamaria"
+    REM TYPE SONG
+    INDEX 01 18:28:04
+  TRACK 06 AUDIO
+    REM TYPE TALK
+    INDEX 01 22:05:51
+  TRACK 07 AUDIO
+    TITLE "Me and You Baby (Picao Y Tostao)"
+    PERFORMER "Mongo Santamaria"
+    REM TYPE SONG
+    INDEX 01 23:22:37
+  TRACK 08 AUDIO
+    REM TYPE TALK
+    INDEX 01 28:22:13
+  TRACK 09 AUDIO
+    TITLE "La Vida Es Una Lenteja"
+    PERFORMER "Unaesta"
+    REM TYPE SONG
+    INDEX 01 32:05:15
+  TRACK 10 AUDIO
+    REM TYPE TALK
+    INDEX 01 36:30:28
+  TRACK 11 AUDIO
+    TITLE "Aguanile"
+    PERFORMER "Irakere"
+    REM TYPE SONG
+    INDEX 01 39:24:50
+  TRACK 12 AUDIO
+    TITLE "Super Strut"
+    PERFORMER "Deodato"
+    REM TYPE SONG
+    INDEX 01 45:24:52
+  TRACK 13 AUDIO
+    TITLE "Jamay"
+    PERFORMER "Xavier Cugat & His Orchestra"
+    REM TYPE SONG
+    INDEX 01 52:00:23
+  TRACK 14 AUDIO
+    REM TYPE TALK
+    INDEX 01 54:38:69

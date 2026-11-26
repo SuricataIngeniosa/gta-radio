@@ -1,0 +1,44 @@
+REM GENERATOR "align.py: correlación contra los tracks sueltos (precisión ~0,1 s)"
+PERFORMER "Fernando Martinez"
+TITLE "EMOTION"
+FILE "EMOTION.mp3" MP3
+  TRACK 01 AUDIO
+    REM TYPE TALK
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "Wow"
+    PERFORMER "Kate Bush"
+    REM TYPE SONG
+    INDEX 01 05:29:50
+  TRACK 03 AUDIO
+    REM TYPE TALK
+    INDEX 01 09:10:24
+  TRACK 04 AUDIO
+    TITLE "(I Just) Died in Your Arms"
+    PERFORMER "Cutting Crew"
+    REM TYPE SONG
+    INDEX 01 17:21:55
+  TRACK 05 AUDIO
+    TITLE "More Than This"
+    PERFORMER "Roxy Music"
+    REM TYPE SONG
+    INDEX 01 21:27:57
+  TRACK 06 AUDIO
+    REM TYPE TALK
+    INDEX 01 25:54:31
+  TRACK 07 AUDIO
+    TITLE "Africa"
+    PERFORMER "Toto"
+    REM TYPE SONG
+    INDEX 01 27:24:72
+  TRACK 08 AUDIO
+    REM TYPE TALK
+    INDEX 01 32:20:57
+  TRACK 09 AUDIO
+    TITLE "Never Too Much"
+    PERFORMER "Luther Vandross"
+    REM TYPE SONG
+    INDEX 01 52:58:70
+  TRACK 10 AUDIO
+    REM TYPE TALK
+    INDEX 01 56:47:44

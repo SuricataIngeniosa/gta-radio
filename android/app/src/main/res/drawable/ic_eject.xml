@@ -1,0 +1,5 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Material Icons "eject" (Apache 2.0): expulsar disco = cambiar de juego -->
+    <path android:fillColor="#FFFFFFFF" android:pathData="M5,17h14v2H5zM12,5L5.33,15h13.34z" />
+</vector>

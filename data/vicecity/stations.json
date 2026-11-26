@@ -1,0 +1,15 @@
+{
+  "game": "GTA Vice City",
+  "source_durations": "MusicBrainz release 2e70d4f5-0125-43dd-a534-77e28c9f7a42 (bootleg 'Full recordings of each station')",
+  "stations": [
+    { "id": "vrock",     "name": "V-Rock",                 "file": null, "cue": "vrock.cue",     "logo": "logos/vrock.png",     "reference_duration_s": 4644 },
+    { "id": "wave103",   "name": "Wave 103",               "file": null, "cue": "wave103.cue",   "logo": "logos/wave103.png",   "reference_duration_s": 3967 },
+    { "id": "emotion",   "name": "Emotion 98.3",           "file": null, "cue": "emotion.cue",   "logo": "logos/emotion.png",   "reference_duration_s": 3547 },
+    { "id": "flash",     "name": "Flash FM",               "file": null, "cue": "flash.cue",     "logo": "logos/flash.png",     "reference_duration_s": 3588 },
+    { "id": "wildstyle", "name": "Wildstyle Pirate Radio", "file": null, "cue": "wildstyle.cue", "logo": "logos/wildstyle.png", "reference_duration_s": 4107 },
+    { "id": "fever",     "name": "Fever 105",              "file": null, "cue": "fever.cue",     "logo": "logos/fever.png",     "reference_duration_s": 3793 },
+    { "id": "espantoso", "name": "Radio Espantoso",        "file": null, "cue": "espantoso.cue", "logo": "logos/espantoso.png", "reference_duration_s": 3698 },
+    { "id": "kchat",     "name": "K-Chat",                 "file": null, "cue": "kchat.cue",     "logo": "logos/kchat.png",     "reference_duration_s": 6236 },
+    { "id": "vcpr",      "name": "Vice City Public Radio", "file": null, "cue": "vcpr.cue",      "logo": "logos/vcpr.png",      "reference_duration_s": 5184 }
+  ]
+}

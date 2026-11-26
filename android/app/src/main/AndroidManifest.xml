@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Reproducción en segundo plano (Android 14+ exige el tipo mediaPlayback). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Leer las carpetas predefinidas (Music/GTA ... Radios o un pendrive) sin el selector de archivos, que algunos
+         sistemas de auto (BYD DiLink) no traen. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Android 11+: los permisos de medios no ven carpetas con .nomedia ni archivos sin indexar; "acceso a todos los
+         archivos" sí. Si el sistema no tiene la pantalla para darlo: adb shell appops set ar.nallib.gtaradio MANAGE_EXTERNAL_STORAGE allow -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        xmlns:tools="http://schemas.android.com/tools" tools:ignore="ScopedStorage" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@android:style/Theme.Material.NoActionBar"
+        android:requestLegacyExternalStorage="true">
+
+        <!-- Declara la app como app de medios para Android Auto. -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Android Auto descubre el servicio por estas dos acciones. -->
+        <service
+            android:name=".service.RadioPlaybackService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaLibraryService" />
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

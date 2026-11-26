@@ -1,0 +1,576 @@
+{
+ "source": "https://www.gtabase.com/gta-vice-city/radio-stations/ (orden de la página, NO es el orden de emisión)",
+ "notes": [
+  "removed = quitada en versiones posteriores (Steam post-2012/2014 y Definitive Edition); el PC original 2002 las trae todas",
+  "MusicBrainz 77180e8c… difiere: pone Aneka en Wave 103, Lionel Richie en Flash FM PC, y en Espantoso 'Irakere - Aguanile' en vez de 'Añunga Ñunga'. A resolver escuchando el archivo."
+ ],
+ "stations": {
+  "wildstyle": {
+   "host": "Mr. Magic",
+   "tracks": [
+    {
+     "artist": "Trouble Funk",
+     "title": "Pump Me Up",
+     "year": 1980
+    },
+    {
+     "artist": "Davy DMX",
+     "title": "One for the Treble",
+     "year": 1984
+    },
+    {
+     "artist": "Cybotron",
+     "title": "Clear",
+     "year": 1983
+    },
+    {
+     "artist": "Hashim",
+     "title": "Al-Naafiysh (The Soul)",
+     "year": 1983
+    },
+    {
+     "artist": "Herbie Hancock",
+     "title": "Rockit",
+     "year": 1983,
+     "removed": true
+    },
+    {
+     "artist": "Afrika Bambaataa and The Soul Sonic Force",
+     "title": "Looking for the Perfect Beat",
+     "year": 1983,
+     "removed": true
+    },
+    {
+     "artist": "2 Live Crew",
+     "title": "Get It Girl",
+     "year": 1986
+    },
+    {
+     "artist": "Run-D.M.C.",
+     "title": "Rock Box",
+     "year": 1984
+    },
+    {
+     "artist": "Mantronix",
+     "title": "Bassline",
+     "year": 1985
+    },
+    {
+     "artist": "Tyrone Brunson",
+     "title": "The Smurf",
+     "year": 1982,
+     "removed": true
+    },
+    {
+     "artist": "Whodini",
+     "title": "Magic's Wand",
+     "year": 1982
+    },
+    {
+     "artist": "Zapp & Roger",
+     "title": "More Bounce to the Ounce",
+     "year": 1980
+    },
+    {
+     "artist": "Grandmaster Flash and the Furious Five",
+     "title": "The Message",
+     "year": 1982
+    },
+    {
+     "artist": "Kurtis Blow",
+     "title": "The Breaks",
+     "year": 1980
+    },
+    {
+     "artist": "Man Parrish",
+     "title": "Hip Hop, Be Bop (Don't Stop)",
+     "year": 1982
+    }
+   ]
+  },
+  "flash": {
+   "host": "Toni",
+   "tracks": [
+    {
+     "artist": "Hall and Oates",
+     "title": "Out of Touch",
+     "year": 1984
+    },
+    {
+     "artist": "Wang Chung",
+     "title": "Dance Hall Days",
+     "year": 1982
+    },
+    {
+     "artist": "Michael Jackson",
+     "title": "Billie Jean",
+     "year": 1982,
+     "removed": true
+    },
+    {
+     "artist": "Laura Branigan",
+     "title": "Self Control",
+     "year": 1984
+    },
+    {
+     "artist": "Go West",
+     "title": "Call Me",
+     "year": 1985
+    },
+    {
+     "artist": "INXS",
+     "title": "Kiss the Dirt (Falling Down the Mountain)",
+     "year": 1985
+    },
+    {
+     "artist": "Bryan Adams",
+     "title": "Run to You",
+     "year": 1984
+    },
+    {
+     "artist": "Electric Light Orchestra",
+     "title": "Four Little Diamonds",
+     "year": 1983
+    },
+    {
+     "artist": "Yes",
+     "title": "Owner of a Lonely Heart",
+     "year": 1983
+    },
+    {
+     "artist": "The Buggles",
+     "title": "Video Killed the Radio Star",
+     "year": 1979
+    },
+    {
+     "artist": "Aneka",
+     "title": "Japanese Boy",
+     "year": 1981
+    },
+    {
+     "artist": "Talk Talk",
+     "title": "Life's What You Make It",
+     "year": 1986
+    },
+    {
+     "artist": "The Outfield",
+     "title": "Your Love",
+     "year": 1985
+    },
+    {
+     "artist": "Joe Jackson",
+     "title": "Steppin' Out",
+     "year": 1982
+    },
+    {
+     "artist": "The Fixx",
+     "title": "One Thing Leads to Another",
+     "year": 1983
+    },
+    {
+     "artist": "Lionel Richie",
+     "title": "Running with the Night",
+     "year": 1983,
+     "only": "PS2"
+    }
+   ]
+  },
+  "fever": {
+   "host": "Oliver \"Ladykiller\" Biscuit",
+   "tracks": [
+    {
+     "artist": "The Whispers",
+     "title": "And the Beat Goes On",
+     "year": 1979
+    },
+    {
+     "artist": "Fat Larry's Band",
+     "title": "Act Like You Know",
+     "year": 1982
+    },
+    {
+     "artist": "Oliver Cheatham",
+     "title": "Get Down Saturday Night",
+     "year": 1983
+    },
+    {
+     "artist": "Pointer Sisters",
+     "title": "Automatic",
+     "year": 1983
+    },
+    {
+     "artist": "René & Angela",
+     "title": "I'll Be Good",
+     "year": 1985
+    },
+    {
+     "artist": "Mary Jane Girls",
+     "title": "All Night Long",
+     "year": 1983
+    },
+    {
+     "artist": "Rick James",
+     "title": "Ghetto Life",
+     "year": 1981
+    },
+    {
+     "artist": "Michael Jackson",
+     "title": "Wanna Be Startin' Somethin'",
+     "year": 1982,
+     "removed": true
+    },
+    {
+     "artist": "Evelyn \"Champagne\" King",
+     "title": "Shame",
+     "year": 1977
+    },
+    {
+     "artist": "Teena Marie",
+     "title": "Behind the Groove",
+     "year": 1980
+    },
+    {
+     "artist": "Mtume",
+     "title": "Juicy Fruit",
+     "year": 1983
+    },
+    {
+     "artist": "Kool & the Gang",
+     "title": "Summer Madness",
+     "year": 1974
+    },
+    {
+     "artist": "Indeep",
+     "title": "Last Night a D.J. Saved My Life",
+     "year": 1982
+    }
+   ]
+  },
+  "vrock": {
+   "host": "Lazlow",
+   "tracks": [
+    {
+     "artist": "Twisted Sister",
+     "title": "I Wanna Rock",
+     "year": 1984
+    },
+    {
+     "artist": "Mötley Crüe",
+     "title": "Too Young to Fall in Love",
+     "year": 1983
+    },
+    {
+     "artist": "Quiet Riot",
+     "title": "Cum On Feel the Noize",
+     "year": 1983
+    },
+    {
+     "artist": "The Cult",
+     "title": "She Sells Sanctuary",
+     "year": 1985
+    },
+    {
+     "artist": "Ozzy Osbourne",
+     "title": "Bark at the Moon",
+     "year": 1983,
+     "removed": true
+    },
+    {
+     "artist": "Love Fist",
+     "title": "Dangerous Bastard",
+     "year": null
+    },
+    {
+     "artist": "Iron Maiden",
+     "title": "2 Minutes to Midnight",
+     "year": 1984
+    },
+    {
+     "artist": "Loverboy",
+     "title": "Working for the Weekend",
+     "year": 1981
+    },
+    {
+     "artist": "Alcatrazz",
+     "title": "God Blessed Video",
+     "year": 1985
+    },
+    {
+     "artist": "Tesla",
+     "title": "Cumin' Atcha Live",
+     "year": 1986
+    },
+    {
+     "artist": "Autograph",
+     "title": "Turn Up the Radio",
+     "year": 1984
+    },
+    {
+     "artist": "Megadeth",
+     "title": "Peace Sells",
+     "year": 1986
+    },
+    {
+     "artist": "Anthrax",
+     "title": "Madhouse",
+     "year": 1985
+    },
+    {
+     "artist": "Slayer",
+     "title": "Raining Blood",
+     "year": 1986
+    },
+    {
+     "artist": "Judas Priest",
+     "title": "You've Got Another Thing Comin'",
+     "year": 1982
+    },
+    {
+     "artist": "Love Fist",
+     "title": "Fist Fury",
+     "year": null
+    },
+    {
+     "artist": "David Lee Roth",
+     "title": "Yankee Rose",
+     "year": 1986
+    }
+   ]
+  },
+  "espantoso": {
+   "host": "Pepe",
+   "tracks": [
+    {
+     "artist": "Cachao",
+     "title": "A Gozar Con Mi Combo",
+     "year": 1994
+    },
+    {
+     "artist": "Alpha Banditos",
+     "title": "The Bull is Wrong",
+     "year": null
+    },
+    {
+     "artist": "Tres Apenas Como Eso",
+     "title": "Yo Te Miré",
+     "year": null
+    },
+    {
+     "artist": "Deodato",
+     "title": "Latin Flute",
+     "year": 1973
+    },
+    {
+     "artist": "Mongo Santamaría",
+     "title": "Mama Papa Tú",
+     "year": 1969
+    },
+    {
+     "artist": "Mongo Santamaría",
+     "title": "Me and You Baby (Picao y Tostao)",
+     "year": 1969
+    },
+    {
+     "artist": "Machito and his Afro-Cuban Orchestra",
+     "title": "Mambo Mucho Mambo",
+     "year": 1952
+    },
+    {
+     "artist": "Unaesta",
+     "title": "La Vida Es Una Lenteja",
+     "year": null
+    },
+    {
+     "artist": "Lonnie Liston Smith",
+     "title": "Expansions",
+     "year": 1975
+    },
+    {
+     "artist": "Irakere",
+     "title": "Añunga Ñunga",
+     "year": 1980,
+     "removed": true
+    },
+    {
+     "artist": "Deodato",
+     "title": "Super Strut",
+     "year": 1973
+    },
+    {
+     "artist": "Xavier Cugat and his Orchestra",
+     "title": "Jamay",
+     "year": 1955
+    },
+    {
+     "artist": "Benny Moré",
+     "title": "Maracaibo Oriental",
+     "year": 1958
+    },
+    {
+     "artist": "Tito Puente",
+     "title": "Mambo Gozón",
+     "year": 1958
+    }
+   ]
+  },
+  "emotion": {
+   "host": "Fernando Martinez",
+   "tracks": [
+    {
+     "artist": "Foreigner",
+     "title": "Waiting for a Girl Like You",
+     "year": 1981
+    },
+    {
+     "artist": "Kate Bush",
+     "title": "Wow",
+     "year": 1978,
+     "removed": true
+    },
+    {
+     "artist": "Squeeze",
+     "title": "Tempted",
+     "year": 1981
+    },
+    {
+     "artist": "REO Speedwagon",
+     "title": "Keep On Loving You",
+     "year": 1980
+    },
+    {
+     "artist": "Cutting Crew",
+     "title": "(I Just) Died in Your Arms",
+     "year": 1986
+    },
+    {
+     "artist": "Roxy Music",
+     "title": "More Than This",
+     "year": 1982
+    },
+    {
+     "artist": "Toto",
+     "title": "Africa",
+     "year": 1982
+    },
+    {
+     "artist": "Mr. Mister",
+     "title": "Broken Wings",
+     "year": 1985
+    },
+    {
+     "artist": "John Waite",
+     "title": "Missing You",
+     "year": 1984
+    },
+    {
+     "artist": "Jan Hammer",
+     "title": "Crockett's Theme",
+     "year": 1984
+    },
+    {
+     "artist": "Night Ranger",
+     "title": "Sister Christian",
+     "year": 1983
+    },
+    {
+     "artist": "Luther Vandross",
+     "title": "Never Too Much",
+     "year": 1981
+    }
+   ]
+  },
+  "wave103": {
+   "host": "Adam First",
+   "tracks": [
+    {
+     "artist": "Frankie Goes to Hollywood",
+     "title": "Two Tribes",
+     "year": 1984
+    },
+    {
+     "artist": "Sigue Sigue Sputnik",
+     "title": "Love Missile F1-11",
+     "year": 1986
+    },
+    {
+     "artist": "Gary Numan",
+     "title": "Cars",
+     "year": 1979
+    },
+    {
+     "artist": "The Human League",
+     "title": "(Keep Feeling) Fascination",
+     "year": 1983
+    },
+    {
+     "artist": "Blondie",
+     "title": "Atomic",
+     "year": 1979
+    },
+    {
+     "artist": "Nena",
+     "title": "99 Luftballons",
+     "year": 1983
+    },
+    {
+     "artist": "Kim Wilde",
+     "title": "Kids in America",
+     "year": 1981
+    },
+    {
+     "artist": "Tears for Fears",
+     "title": "Pale Shelter",
+     "year": 1983
+    },
+    {
+     "artist": "Corey Hart",
+     "title": "Sunglasses at Night",
+     "year": 1983
+    },
+    {
+     "artist": "ABC",
+     "title": "Poison Arrow",
+     "year": 1982
+    },
+    {
+     "artist": "A Flock of Seagulls",
+     "title": "I Ran (So Far Away)",
+     "year": 1982
+    },
+    {
+     "artist": "The Psychedelic Furs",
+     "title": "Love My Way",
+     "year": 1982
+    },
+    {
+     "artist": "Animotion",
+     "title": "Obsession",
+     "year": 1984
+    },
+    {
+     "artist": "Spandau Ballet",
+     "title": "Gold",
+     "year": 1983
+    },
+    {
+     "artist": "Thomas Dolby",
+     "title": "Hyperactive!",
+     "year": 1984
+    },
+    {
+     "artist": "Romeo Void",
+     "title": "Never Say Never",
+     "year": 1981
+    }
+   ]
+  },
+  "kchat": {
+   "host": "Amy Sheckenhausen",
+   "tracks": []
+  },
+  "vcpr": {
+   "host": "Maurice Chavez",
+   "tracks": []
+  }
+ }
+}

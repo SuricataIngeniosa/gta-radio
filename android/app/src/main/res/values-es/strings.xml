@@ -1,0 +1,7 @@
+<resources>
+    <string name="secret_title">Radio secreta</string>
+    <string name="secret_prompt">Poné el nombre de la radio que falta.</string>
+    <string name="secret_wrong">Nombre incorrecto, sigue jugando al juego para encontrar la radio.</string>
+    <string name="secret_enter">Entrar</string>
+    <string name="secret_cancel">Cancelar</string>
+</resources>

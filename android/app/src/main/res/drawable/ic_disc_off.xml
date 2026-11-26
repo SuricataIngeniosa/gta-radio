@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Disco tachado (GTA VI: no salió en disco). El disco tiene un corte a lo largo de la raya para que la raya se lea. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <group>
+        <clip-path android:fillType="evenOdd"
+            android:pathData="M0,0H24V24H0Z M3.13,0.87L23.13,20.87L20.87,23.13L0.87,3.13Z" />
+        <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd"
+            android:pathData="M12,2A10,10 0 1,1 12,22A10,10 0 1,1 12,2Z
+                M12,8.4A3.6,3.6 0 1,0 12,15.6A3.6,3.6 0 1,0 12,8.4Z
+                M12,9A3,3 0 1,1 12,15A3,3 0 1,1 12,9Z
+                M12,10.8A1.2,1.2 0 1,0 12,13.2A1.2,1.2 0 1,0 12,10.8Z" />
+    </group>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M2.57,1.43L22.57,21.43L21.43,22.57L1.43,2.57Z" />
+</vector>

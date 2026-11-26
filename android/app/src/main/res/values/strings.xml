@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GTA Radio</string>
+    <string name="secret_title">Secret station</string>
+    <string name="secret_prompt">Enter the name of the missing station.</string>
+    <string name="secret_wrong">Wrong name, keep playing the game to find the station.</string>
+    <string name="secret_enter">Enter</string>
+    <string name="secret_cancel">Cancel</string>
+</resources>

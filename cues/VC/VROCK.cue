@@ -1,0 +1,86 @@
+REM GENERATOR "align.py: correlación contra los tracks sueltos (precisión ~0,1 s)"
+PERFORMER "Lazlow"
+TITLE "VROCK"
+FILE "VROCK.mp3" MP3
+  TRACK 01 AUDIO
+    REM TYPE TALK
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "Too Young to Fall in Love"
+    PERFORMER "Mötley Crüe"
+    REM TYPE SONG
+    INDEX 01 03:06:11
+  TRACK 03 AUDIO
+    REM TYPE TALK
+    INDEX 01 06:36:04
+  TRACK 04 AUDIO
+    TITLE "Cum On Feel the Noize"
+    PERFORMER "Quiet Riot"
+    REM TYPE SONG
+    INDEX 01 08:29:65
+  TRACK 05 AUDIO
+    REM TYPE TALK
+    INDEX 01 13:18:13
+  TRACK 06 AUDIO
+    TITLE "Dangerous Bastard"
+    PERFORMER "Rockstar's Love Fist"
+    REM TYPE SONG
+    INDEX 01 25:36:43
+  TRACK 07 AUDIO
+    REM TYPE TALK
+    INDEX 01 29:43:39
+  TRACK 08 AUDIO
+    TITLE "2 Minutes to Midnight"
+    PERFORMER "Iron Maiden"
+    REM TYPE SONG
+    INDEX 01 29:49:13
+  TRACK 09 AUDIO
+    REM TYPE TALK
+    INDEX 01 35:48:67
+  TRACK 10 AUDIO
+    TITLE "Working for the Weekend"
+    PERFORMER "Loverboy"
+    REM TYPE SONG
+    INDEX 01 37:28:63
+  TRACK 11 AUDIO
+    REM TYPE TALK
+    INDEX 01 41:08:28
+  TRACK 12 AUDIO
+    TITLE "Cumin' Atcha Live"
+    PERFORMER "Tesla"
+    REM TYPE SONG
+    INDEX 01 44:44:62
+  TRACK 13 AUDIO
+    REM TYPE TALK
+    INDEX 01 49:11:13
+  TRACK 14 AUDIO
+    TITLE "Turn Up the Radio"
+    PERFORMER "Autograph"
+    REM TYPE SONG
+    INDEX 01 49:15:72
+  TRACK 15 AUDIO
+    TITLE "Peace Sells"
+    PERFORMER "Megadeth"
+    REM TYPE SONG
+    INDEX 01 53:43:29
+  TRACK 16 AUDIO
+    REM TYPE TALK
+    INDEX 01 57:44:59
+  TRACK 17 AUDIO
+    TITLE "Madhouse"
+    PERFORMER "Anthrax"
+    REM TYPE SONG
+    INDEX 01 58:24:37
+  TRACK 18 AUDIO
+    TITLE "Raining Blood"
+    PERFORMER "Slayer"
+    REM TYPE SONG
+    INDEX 01 62:05:59
+  TRACK 19 AUDIO
+    REM TYPE TALK
+    INDEX 01 66:18:54
+  TRACK 20 AUDIO
+    TITLE "Yankee Rose"
+    PERFORMER "David Lee Roth"
+    REM TYPE SONG
+    INDEX 01 73:40:68
