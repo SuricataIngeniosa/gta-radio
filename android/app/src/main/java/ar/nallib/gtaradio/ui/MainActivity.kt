@@ -51,6 +51,9 @@ import ar.nallib.gtaradio.data.Game
 import ar.nallib.gtaradio.data.Prefs
 import ar.nallib.gtaradio.data.Station
 import ar.nallib.gtaradio.data.Stations
+import ar.nallib.gtaradio.data.Updates
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ar.nallib.gtaradio.service.RadioPlaybackService
 import com.google.common.util.concurrent.MoreExecutors
 
@@ -68,9 +71,13 @@ class MainActivity : ComponentActivity() {
         override fun onEvents(player: Player, events: Player.Events) = refresh()
     }
 
+    /** Versión nueva en GitHub Releases (se busca una vez al abrir la app). */
+    private var update by mutableStateOf<ar.nallib.gtaradio.data.Release?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        if (savedInstanceState == null) lifecycleScope.launch { update = Updates.check(this@MainActivity) }
         // Notificaciones y lectura de las carpetas predefinidas (para los sistemas sin selector de archivos).
         requestPermissions(
             if (Build.VERSION.SDK_INT >= 33) arrayOf(Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.READ_MEDIA_AUDIO, Manifest.permission.READ_MEDIA_IMAGES)
@@ -100,6 +107,7 @@ class MainActivity : ComponentActivity() {
                     // key: al cambiar de juego se rearma la pantalla con su carpeta y sus emisoras.
                     key(game) { Screen(prefs, onPickGame = { g -> if (g != game) game = switchGame(prefs, g) }) }
                 }
+                update?.let { UpdateDialog(it, onDismiss = { update = null }) }
             }
         }
     }
@@ -130,6 +138,42 @@ class MainActivity : ComponentActivity() {
         controller?.run { removeListener(listener); release() }
         controller = null
         super.onStop()
+    }
+
+    /** Ofrece la versión nueva: la baja y abre el instalador de Android, que pide confirmar. */
+    @Composable
+    private fun UpdateDialog(release: ar.nallib.gtaradio.data.Release, onDismiss: () -> Unit) {
+        val scope = rememberCoroutineScope()
+        var progress by remember { mutableStateOf<Float?>(null) }
+        var message by remember { mutableStateOf<Int?>(null) }
+        val install: () -> Unit = {
+            if (!Updates.canInstall(this)) {
+                message = R.string.update_permission
+                startActivity(Updates.installPermissionIntent(this))
+            } else {
+                message = null; progress = 0f
+                scope.launch {
+                    runCatching { Updates.download(this@MainActivity, release) { p -> progress = p } }
+                        .onSuccess { progress = null; startActivity(Updates.installIntent(this@MainActivity, it)) }
+                        .onFailure { progress = null; message = R.string.update_failed }
+                }
+            }
+        }
+        AlertDialog(
+            onDismissRequest = { if (progress == null) onDismiss() },
+            title = { Text(stringResource(R.string.update_title, release.version)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(stringResource(progress?.let { R.string.update_downloading } ?: message ?: R.string.update_text))
+                    progress?.let { p ->
+                        if (p < 0f) LinearProgressIndicator(Modifier.fillMaxWidth())
+                        else LinearProgressIndicator(progress = { p }, modifier = Modifier.fillMaxWidth())
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = install, enabled = progress == null) { Text(stringResource(R.string.update_install)) } },
+            dismissButton = { TextButton(onClick = onDismiss, enabled = progress == null) { Text(stringResource(R.string.update_later)) } },
+        )
     }
 
     private fun refresh() {

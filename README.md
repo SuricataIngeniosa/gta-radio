@@ -10,6 +10,8 @@ Android and Android Auto app that plays the radio stations of GTA III, Vice City
 2. Copy the stations to the phone (see [Folder layout](#folder-layout)).
 3. Open the app and pick each game's folder from the gear icon. If you pick none, the app looks for `Music/GTA III Radios`, `Music/GTA VC Radios`, etc. on internal storage, the SD card or a USB drive.
 
+When a newer release is published here, the app offers it on launch: tap **Update**, and Android's installer asks you to confirm. The first time, Android asks you to allow GTA Radio to install apps.
+
 On car head units without a file picker (e.g. BYD DiLink), tap "Allow access to all files" in the app, or from a PC:
 
 ```sh

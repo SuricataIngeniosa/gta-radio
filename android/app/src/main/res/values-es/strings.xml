@@ -4,4 +4,11 @@
     <string name="secret_wrong">Nombre incorrecto, sigue jugando al juego para encontrar la radio.</string>
     <string name="secret_enter">Entrar</string>
     <string name="secret_cancel">Cancelar</string>
+    <string name="update_title">Versión nueva %1$s</string>
+    <string name="update_text">Hay una versión nueva de GTA Radio.</string>
+    <string name="update_install">Actualizar</string>
+    <string name="update_later">Más tarde</string>
+    <string name="update_downloading">Descargando…</string>
+    <string name="update_failed">No se pudo descargar. Probá más tarde.</string>
+    <string name="update_permission">Permití que GTA Radio instale apps y tocá Actualizar de nuevo.</string>
 </resources>

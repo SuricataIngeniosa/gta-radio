@@ -5,4 +5,11 @@
     <string name="secret_wrong">Wrong name, keep playing the game to find the station.</string>
     <string name="secret_enter">Enter</string>
     <string name="secret_cancel">Cancel</string>
+    <string name="update_title">New version %1$s</string>
+    <string name="update_text">A new version of GTA Radio is available.</string>
+    <string name="update_install">Update</string>
+    <string name="update_later">Later</string>
+    <string name="update_downloading">Downloading…</string>
+    <string name="update_failed">The download failed. Try again later.</string>
+    <string name="update_permission">Allow GTA Radio to install apps, then tap Update again.</string>
 </resources>
