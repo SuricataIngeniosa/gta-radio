@@ -11,4 +11,5 @@
     <string name="update_downloading">Descargando…</string>
     <string name="update_failed">No se pudo descargar. Probá más tarde.</string>
     <string name="update_permission">Permití que GTA Radio instale apps y tocá Actualizar de nuevo.</string>
+    <string name="update_installing">Instalando… GTA Radio se va a cerrar al terminar.</string>
 </resources>

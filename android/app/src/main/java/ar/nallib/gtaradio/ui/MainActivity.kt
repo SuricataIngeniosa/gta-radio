@@ -146,6 +146,10 @@ class MainActivity : ComponentActivity() {
         val scope = rememberCoroutineScope()
         var progress by remember { mutableStateOf<Float?>(null) }
         var message by remember { mutableStateOf<Int?>(null) }
+        var installing by remember { mutableStateOf(false) }
+        // Si Android rechaza la instalación, se vuelve a ofrecer con el error.
+        val failed by Updates.failure.collectAsState()
+        LaunchedEffect(failed) { if (failed != null) { installing = false; message = R.string.update_failed } }
         val install: () -> Unit = {
             if (!Updates.canInstall(this)) {
                 message = R.string.update_permission
@@ -153,26 +157,34 @@ class MainActivity : ComponentActivity() {
             } else {
                 message = null; progress = 0f
                 scope.launch {
-                    runCatching { Updates.download(this@MainActivity, release) { p -> progress = p } }
-                        .onSuccess { progress = null; startActivity(Updates.installIntent(this@MainActivity, it)) }
-                        .onFailure { progress = null; message = R.string.update_failed }
+                    runCatching {
+                        val apk = Updates.download(this@MainActivity, release) { p -> progress = p }
+                        installing = true
+                        Updates.install(this@MainActivity, apk)
+                    }.onFailure { message = R.string.update_failed; installing = false }
+                    progress = null
                 }
             }
         }
         AlertDialog(
-            onDismissRequest = { if (progress == null) onDismiss() },
+            onDismissRequest = { if (progress == null && !installing) onDismiss() },
             title = { Text(stringResource(R.string.update_title, release.version)) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(stringResource(progress?.let { R.string.update_downloading } ?: message ?: R.string.update_text))
+                    Text(when {
+                        progress != null -> stringResource(R.string.update_downloading)
+                        installing -> stringResource(R.string.update_installing)
+                        else -> stringResource(message ?: R.string.update_text)
+                    })
+                    if (installing) LinearProgressIndicator(Modifier.fillMaxWidth())
                     progress?.let { p ->
                         if (p < 0f) LinearProgressIndicator(Modifier.fillMaxWidth())
                         else LinearProgressIndicator(progress = { p }, modifier = Modifier.fillMaxWidth())
                     }
                 }
             },
-            confirmButton = { TextButton(onClick = install, enabled = progress == null) { Text(stringResource(R.string.update_install)) } },
-            dismissButton = { TextButton(onClick = onDismiss, enabled = progress == null) { Text(stringResource(R.string.update_later)) } },
+            confirmButton = { TextButton(onClick = install, enabled = progress == null && !installing) { Text(stringResource(R.string.update_install)) } },
+            dismissButton = { TextButton(onClick = onDismiss, enabled = progress == null && !installing) { Text(stringResource(R.string.update_later)) } },
         )
     }
 

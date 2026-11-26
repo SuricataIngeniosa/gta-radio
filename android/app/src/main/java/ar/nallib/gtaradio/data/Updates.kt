@@ -1,12 +1,14 @@
 package ar.nallib.gtaradio.data
 
 import android.content.Context
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageInstaller
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
@@ -17,7 +19,7 @@ import java.net.URL
 data class Release(val version: String, val apkUrl: String)
 
 /**
- * Busca versiones nuevas en los Releases del repo y las instala con el instalador de Android (el usuario confirma).
+ * Busca versiones nuevas en los Releases del repo, baja el APK y la app se actualiza sola (ver install).
  * Sin internet o si GitHub no responde, no pasa nada: la app sigue igual.
  */
 object Updates {
@@ -75,10 +77,32 @@ object Updates {
     fun installPermissionIntent(context: Context) =
         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${context.packageName}"))
 
-    fun installIntent(context: Context, apk: File): Intent =
-        Intent(Intent.ACTION_VIEW)
-            .setDataAndType(FileProvider.getUriForFile(context, "${context.packageName}.updates", apk), "application/vnd.android.package-archive")
-            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+    /** Resultado de la última instalación que falló (lo muestra el diálogo); null mientras no haya error. */
+    val failure = MutableStateFlow<String?>(null)
+
+    /**
+     * Instala el APK con PackageInstaller. Desde Android 12, si esta app fue la que instaló la versión actual, Android
+     * actualiza sin preguntar; si no (la primera vez), muestra su confirmación. Al terminar, Android cierra la app.
+     */
+    suspend fun install(context: Context, apk: File) = withContext(Dispatchers.IO) {
+        failure.value = null
+        val installer = context.packageManager.packageInstaller
+        val params = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
+            setAppPackageName(context.packageName)
+            if (Build.VERSION.SDK_INT >= 31) setRequireUserAction(PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED)
+            if (Build.VERSION.SDK_INT >= 34) setRequestUpdateOwnership(true)
+        }
+        val id = installer.createSession(params)
+        installer.openSession(id).use { session ->
+            session.openWrite("base.apk", 0, apk.length()).use { out ->
+                apk.inputStream().use { it.copyTo(out) }
+                session.fsync(out)
+            }
+            val flags = PendingIntent.FLAG_UPDATE_CURRENT or (if (Build.VERSION.SDK_INT >= 31) PendingIntent.FLAG_MUTABLE else 0)
+            val status = PendingIntent.getBroadcast(context, id, Intent(context, UpdateReceiver::class.java), flags)
+            session.commit(status.intentSender)
+        }
+    }
 
     private fun get(url: String) = (URL(url).openConnection() as HttpURLConnection).run {
         connectTimeout = 5_000; readTimeout = 5_000
